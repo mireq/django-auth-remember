@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings as django_settings
 
 from auth_remember import settings
 from auth_remember.auth_utils import check_password
@@ -34,6 +34,6 @@ class RememberToken(models.Model):
 
     created_initial = models.DateTimeField(editable=False, blank=False)
 
-    user = models.ForeignKey(User, related_name="remember_me_tokens")
+    user = models.ForeignKey(django_settings.AUTH_USER_MODEL, related_name="remember_me_tokens")
 
     objects = RememberTokenManager()
