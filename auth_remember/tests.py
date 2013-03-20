@@ -1,11 +1,17 @@
 import time
 
 from django.contrib import auth
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
+try:
+	from django.contrib.auth import get_user_model
+except ImportError:  # django < 1.5
+	from django.contrib.auth.models import User
+else:
+	User = get_user_model()
 
 
 class TokenCreationTest(TestCase):
